@@ -1,0 +1,267 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\usepackage{lmodern}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Ls}{L_s}
+\newcommand{\lmax}{\lambda_{\max}}
+\newcommand{\tmax}{T_{\max}}
+\newcommand{\Tau}{\mathcal{T}}
+
+\title{A Proof of the Source-Corrected\\Written on the Wall II Graph Conjecture 160}
+\author{AI-assisted proof search and write-up}
+\date{July 23, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a finite nontrivial connected simple graph $G$, let $\Ls(G)$ be the
+maximum number of leaves in a spanning tree, let
+$\lambda(v)=\alpha(G[N(v)])$, let $T(v)$ be the number of triangles
+containing $v$, and let $\chi_{C_4}(G)$ be $1$ when $G$ contains no
+(not necessarily induced) $4$-cycle and $0$ otherwise.  We prove the
+source-corrected Written on the Wall II Conjecture 160:
+\[
+  \Ls(G)\ge \max_v\lambda(v)+\chi_{C_4}(G)\max_v T(v).
+\]
+The proof is constructive.  In the $C_4$-free case, every open
+neighborhood is a matching together with isolated vertices.  Two
+suitably chosen stars, joined by a geodesic, then produce a tree
+subgraph with the required number of leaves; a short exceptional case
+is handled by rerouting through a degree-two triangle.
+\end{abstract}
+
+\section{Statement and notation}
+
+Let $G$ be a finite nontrivial connected simple graph.  Write
+\begin{itemize}[leftmargin=2em]
+  \item $\Ls(G)$ for the maximum number of leaves among spanning trees of $G$;
+  \item $\lambda(v)=\alpha(G[N(v)])$, the independence number of the graph
+        induced by the open neighborhood of $v$;
+  \item $T(v)$ for the number of triangles containing $v$;
+  \item $\lmax=\max_v\lambda(v)$ and $\tmax=\max_vT(v)$;
+  \item $\chi_{C_4}(G)=1$ if $G$ contains no $4$-cycle as a subgraph,
+        and $\chi_{C_4}(G)=0$ otherwise.
+\end{itemize}
+The corrected historical statement is
+\begin{equation}\label{eq:main}
+  \Ls(G)\ge \lmax+\tmax\chi_{C_4}(G).
+\end{equation}
+The $4$-cycle in this definition need not be induced.
+
+\section{Two elementary lemmas}
+
+\begin{lemma}[Subtree extension]\label{lem:extend}
+If $H$ is a tree subgraph of a connected graph $G$, then $H$ is
+contained in a spanning tree of $G$ having at least as many leaves as $H$.
+\end{lemma}
+
+\begin{proof}
+While the current tree is not spanning, connectivity gives an edge
+$uv$ with $u$ in the current tree and $v$ outside it.  Add $v$ and the
+edge $uv$.  If $u$ was not a leaf, the operation creates one new leaf.
+If $u$ was a leaf, $u$ ceases to be a leaf but $v$ becomes one, so the
+number of leaves does not decrease.  Iteration gives a spanning tree.
+\end{proof}
+
+Thus it is enough to construct any tree subgraph with the desired
+number of leaves.
+
+\begin{lemma}[Neighborhood structure]\label{lem:local}
+If $G$ contains no $4$-cycle, then $G[N(v)]$ has maximum degree at most
+one for every vertex $v$.
+\end{lemma}
+
+\begin{proof}
+If some $a\in N(v)$ had two distinct neighbors $b,c\in N(v)$, then
+$b-a-c-v-b$ would be a $4$-cycle.
+\end{proof}
+
+Consequently, in a $C_4$-free graph, $G[N(v)]$ is a disjoint union of
+edges and isolated vertices.  Each edge of $G[N(v)]$ is a triangle
+through $v$.  If $G[N(v)]$ contains $T(v)$ edges and $s(v)$ isolated
+vertices, then
+\[
+  d(v)=2T(v)+s(v),\qquad \lambda(v)=T(v)+s(v).
+\]
+Hence
+\begin{equation}\label{eq:degree}
+  d(v)=\lambda(v)+T(v),
+\end{equation}
+and
+\begin{equation}\label{eq:lambdaT}
+  \lambda(v)\ge T(v).
+\end{equation}
+Also, two vertices in a $C_4$-free graph have at most one common
+neighbor.
+
+\section{Tree subgraphs built from two stars}
+
+Let $x$ and $y$ be distinct vertices in a connected $C_4$-free graph.
+The following constructions will be used repeatedly.
+
+\begin{enumerate}[label=\textbf{(\roman*)}, leftmargin=2.8em]
+\item If $d(x,y)\ge2$, take a shortest $x$--$y$ path, all edges from
+$x$ to $N(x)$, and all edges from $y$ to $N(y)$.  Geodesicity prevents
+an internal path vertex, other than the first or last one, from being a
+neighbor of an endpoint.  If $d(x,y)=2$, the middle vertex is the only
+common neighbor of $x$ and $y$, since a second common neighbor would
+create a $4$-cycle.  The selected edges therefore form a tree with at
+least
+\begin{equation}\label{eq:far}
+  d(x)+d(y)-2
+\end{equation}
+leaves.
+
+\item If $x$ and $y$ are adjacent and have no common neighbor, their
+full stars form a double-star with at least
+\begin{equation}\label{eq:adj0}
+  d(x)+d(y)-2
+\end{equation}
+leaves.
+
+\item If $x$ and $y$ are adjacent and have a common neighbor $z$, then
+$z$ is unique.  Take both full stars and omit one of the two selected
+edges joining $z$ to $x,y$.  The resulting tree has at least
+\begin{equation}\label{eq:adj1}
+  d(x)+d(y)-3
+\end{equation}
+leaves.
+\end{enumerate}
+
+By Lemma~\ref{lem:extend}, each of these lower bounds also applies to
+$\Ls(G)$.
+
+\section{Proof of the conjecture}
+
+\begin{theorem}
+Every finite nontrivial connected simple graph satisfies
+Equation~\eqref{eq:main}.
+\end{theorem}
+
+\begin{proof}
+Choose vertices $x,y$ such that
+\[
+  \lambda(x)=\lmax=: \Lambda,
+  \qquad
+  T(y)=\tmax=: \Tau.
+\]
+
+First suppose that $G$ contains a $4$-cycle.  Then
+$\chi_{C_4}(G)=0$.  A maximum independent set in $G[N(x)]$, joined to
+$x$, gives a star with at least $\Lambda$ leaves.  Lemma~\ref{lem:extend}
+therefore gives $\Ls(G)\ge\Lambda$, which proves the desired bound in
+this case.
+
+Now suppose that $G$ is $C_4$-free.  Put
+\[
+  t_x=T(x),\qquad \lambda_y=\lambda(y).
+\]
+By Equation~\eqref{eq:degree},
+\begin{equation}\label{eq:extremaldegrees}
+  d(x)=\Lambda+t_x,
+  \qquad
+  d(y)=\lambda_y+\Tau.
+\end{equation}
+If $\Tau=0$, the full star at $x$ has at least
+$d(x)=\Lambda+t_x\ge\Lambda$ leaves, so assume $\Tau\ge1$.
+
+If $x=y$, then $t_x=\Tau$, and the full star at $x$ has
+$d(x)=\Lambda+\Tau$ leaves.  Hence assume $x\ne y$.
+
+\medskip
+\noindent\textbf{Case 1: $d(x,y)\ge2$.}
+If $t_x+\lambda_y\ge2$, then Equations~\eqref{eq:far} and
+\eqref{eq:extremaldegrees} give
+\[
+\begin{aligned}
+  \Ls(G)
+  &\ge d(x)+d(y)-2\\
+  &=\Lambda+\Tau+(t_x+\lambda_y-2)\\
+  &\ge\Lambda+\Tau.
+\end{aligned}
+\]
+Suppose instead that $t_x+\lambda_y<2$.  Since $\Tau\ge1$ and
+Equation~\eqref{eq:lambdaT} gives $\lambda_y\ge\Tau$, necessarily
+\[
+  t_x=0,\qquad \lambda_y=\Tau=1.
+\]
+Lemma~\ref{lem:local} then implies that $d(y)=2$, and the two neighbors
+$p,z$ of $y$ are adjacent.  Choose a shortest path from $x$ to $y$ so
+that $p$ is the predecessor of $y$.  Take the full star at $x$, this
+path, and the edge $pz$, while omitting $yz$.  This is a tree.  Its
+leaves include the $d(x)-1$ neighbors of $x$ not used to continue the
+path, as well as both $y$ and $z$.  It therefore has
+\[
+  d(x)-1+2=d(x)+1=\Lambda+1=\Lambda+\Tau
+\]
+leaves.
+
+\medskip
+\noindent\textbf{Case 2: $x$ and $y$ are adjacent and have no common
+neighbor.}
+Here $x$ is an isolated vertex of $G[N(y)]$.  The same neighborhood
+also contains the $\Tau\ge1$ independent matching edges corresponding
+to the triangles through $y$.  Thus
+\[
+  \lambda_y\ge\Tau+1\ge2.
+\]
+In particular $t_x+\lambda_y\ge2$, and Equations~\eqref{eq:adj0} and
+\eqref{eq:extremaldegrees} yield $\Ls(G)\ge\Lambda+\Tau$.
+
+\medskip
+\noindent\textbf{Case 3: $x$ and $y$ are adjacent and have a common
+neighbor.}
+The common neighbor is unique.  The triangle through $x,y$ gives
+$t_x\ge1$, while maximality of $\Tau$ gives $t_x\le\Tau$.
+
+If $t_x=\Tau$, the full star at $x$ has
+\[
+  d(x)=\Lambda+t_x=\Lambda+\Tau
+\]
+leaves.  If $t_x<\Tau$, then $\Tau\ge2$.  Equation~\eqref{eq:lambdaT}
+gives $\lambda_y\ge\Tau\ge2$, and therefore
+$t_x+\lambda_y\ge3$.  Equations~\eqref{eq:adj1} and
+\eqref{eq:extremaldegrees} now give
+\[
+\begin{aligned}
+  \Ls(G)
+  &\ge d(x)+d(y)-3\\
+  &=\Lambda+\Tau+(t_x+\lambda_y-3)\\
+  &\ge\Lambda+\Tau.
+\end{aligned}
+\]
+This completes every case.
+\end{proof}
+
+\section{Computational audit}
+
+The accompanying program \texttt{verify\_wowii160.py} implements the
+constructive proof.  For an input graph it computes the extremal
+vertices $x,y$, constructs the appropriate tree subgraph in the case
+analysis above, extends it to a spanning tree without losing leaves,
+and checks the claimed inequality.  It also exhaustively checks all
+995 connected unlabeled graphs of orders two through seven contained
+in the NetworkX graph atlas, followed by a deterministic random test.
+The computation is an audit of the construction, not a substitute for
+the proof.
+
+\section*{Status note}
+
+This note proves the corrected historical statement in which the
+$C_4$ term is the binary $C_4$-free characteristic.  A separate source
+audit found that an earlier formalization used the number of induced
+$4$-cycles instead; that is not the statement proved here.  A search of
+the current Formal Conjectures pull requests found a correction of the
+statement but no submitted proof of the corrected conjecture at the
+time of this write-up.  Mathematical priority should nevertheless be
+assessed independently by specialists and through a full literature
+search.
+
+\end{document}

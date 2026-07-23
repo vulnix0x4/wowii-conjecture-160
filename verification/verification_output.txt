@@ -1,0 +1,12 @@
+Exhaustive atlas check passed: 995 connected unlabeled graphs (orders 2 through 7).
+Deterministic random check passed: 4997 connected graphs (orders up to 20).
+Construction cases exercised:
+    4869  contains C4: independent-neighborhood star
+     711  C4-free, T_max=0: full star at x
+     203  C4-free, same vertex maximizes lambda and T: full star
+     114  C4-free, adjacent triangle and T(x)=T_max: full star at x
+      42  C4-free, distance>=2: exceptional degree-2 triangle
+      32  C4-free, distance>=2: two stars joined by geodesic
+      16  C4-free, adjacent with no common neighbor: double-star
+       5  C4-free, adjacent triangle: modified double-star
+All checks passed.
